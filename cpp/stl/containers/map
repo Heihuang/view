@@ -1,0 +1,14 @@
+map[]重载实现：
+template<class Key, class T, class Compare = less<Key>,
+class Alloc=alloc>
+class map
+{
+public:
+    typedef Key key_type;
+    typedef pair<const Key, T> value_type;
+public:
+    T& operator[](const key_type& k)
+    {
+        return (*((insert(value_type(k, T()))).first)).second;
+    }
+}
