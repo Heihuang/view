@@ -213,7 +213,7 @@ ListNode* reverseList(ListNode* head)
 ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
     ListNode* head = new ListNode();
     ListNode* ret = head;
-    while (l1 != NULL && l2 != NULL) {
+    while (l1 != nullptr && l2 != nullptr) {
         //若l1指向的结点值 < l2 指向的结点值，则将l1链接到头结点的next位置
         if (l1->value_ < l2->value_) {
             head->next_ = l1;
@@ -226,7 +226,7 @@ ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
         head = head->next_;
     }
     //将l1或l2中剩下的部分，链接到头结点后面
-    head->next_ = l1 == NULL ? l2 : l1;
+    head->next_ = l1 == nullptr ? l2 : l1;
     return ret->next_;
 }
 
@@ -320,10 +320,8 @@ ListNode* copyRandomListEx(ListNode* head)
     while(preNode != nullptr)
     {
         pNode = preNode->next_;
-
         preNode->next_ = pNode->next_;
         preNode = preNode->next_;
-
         pNode->next_ =  preNode == nullptr ? nullptr : preNode->next_;
     }
     return newHead;
