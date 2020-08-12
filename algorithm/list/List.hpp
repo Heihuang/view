@@ -248,6 +248,18 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
 }
 
 //面试题9:圆圈中最后剩下的数字
+//            0, n=1
+//    f(n,m)=        
+//           ((m%n)+f(n−1,m))%n, n > 1
+
+int lastRemaining(int n, int m) {
+    int result = 0;
+    for (int i = 2; i <= n; ++i) {
+        result = (result + m) % i;
+    }
+    return result;
+}
+
 //面试题10:复杂链表的复制
 //方法一：利用哈希表map，深度拷贝源节点，再拷贝随机节点
 ListNode* copyRandomList(ListNode* head)
@@ -318,4 +330,6 @@ ListNode* copyRandomListEx(ListNode* head)
 }
 
 //面试题11:二叉搜索树与双向链表
+//输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。
+//要求不能创建任何新的节点，只能调整树中节点指针的指向。
 }
