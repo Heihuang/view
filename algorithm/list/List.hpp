@@ -7,6 +7,7 @@ struct ListNode
     /* data */
     int value_;
     ListNode* next_;
+    ListNode* random_;
 };
 
 //面试题1：在链表末尾添加一个节点
@@ -248,5 +249,73 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
 
 //面试题9:圆圈中最后剩下的数字
 //面试题10:复杂链表的复制
+//方法一：利用哈希表map，深度拷贝源节点，再拷贝随机节点
+ListNode* copyRandomList(ListNode* head)
+{
+    if(head == nullptr)
+        return nullptr;
+            
+    //创建map对象，并将深度复制的节点添加到map中
+    std::unordered_map<ListNode*,ListNode*> newHead;
+    ListNode *pNode = head;
+    while(pNode != nullptr)
+    {
+        newHead[pNode] = new ListNode();//添加键值对
+        pNode = pNode->next_;
+    }
+    //添加next/random指针
+    pNode = head;
+    while(pNode != nullptr)
+    {
+        newHead[pNode]->next_ = newHead[pNode->next_];
+        newHead[pNode]->random_ = newHead[pNode->random_];
+        pNode = pNode->next_;
+    }
+    return newHead[head];
+}
+//方法二：
+ListNode* copyRandomListEx(ListNode* head)
+{
+    if(head == nullptr)
+        return nullptr;
+    ListNode *pNode = head;
+    while(pNode != nullptr)
+    {
+        ListNode *pNext = pNode->next_;
+        //创建新节点
+        ListNode *newNode = new ListNode();
+        //newNode->val = pNode->val;
+        //插入新节点
+        pNode->next_ = newNode;
+        newNode->next_ = pNext;
+        pNode = pNext;
+    }
+
+    //复制随机指针
+    ListNode *preNode = head;
+    while(preNode != nullptr)
+    {
+        pNode = preNode->next_;
+        //添加随即指针
+        pNode->random_ = preNode->random_ == nullptr ? nullptr : preNode->random_->next_;
+        //更新当前处理的节点
+        preNode = pNode->next_;
+    }
+
+    //拆分成两个链表
+    preNode = head;
+    ListNode *newHead = preNode->next_;
+    while(preNode != nullptr)
+    {
+        pNode = preNode->next_;
+
+        preNode->next_ = pNode->next_;
+        preNode = preNode->next_;
+
+        pNode->next_ =  preNode == nullptr ? nullptr : preNode->next_;
+    }
+    return newHead;
+}
+
 //面试题11:二叉搜索树与双向链表
 }
