@@ -332,4 +332,59 @@ ListNode* copyRandomListEx(ListNode* head)
 //面试题11:二叉搜索树与双向链表
 //输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。
 //要求不能创建任何新的节点，只能调整树中节点指针的指向。
+
+struct TreeNode
+{
+    TreeNode* left_;
+    TreeNode* right_;
+};
+//方法：一、搜索二叉树的特点：
+//（1）其左子树的结点均小于它，其右子树的结点均大于它；
+//（2）其子树也是搜索二叉树；
+//根据二叉树 特点（2） 可联想到使用递归；
+//二、问题分解如下：
+//设：有任意结点 r
+//step 1 将r的左子树变为有序链表，要输出此有序链表的头尾结点 Lhead、LTail；
+//step 2 将r的右子树变为有序链表，要输出此有序链表的头尾结点 Rhead、RTail；
+//step 3 将r结点与左有序链表和右有序两边连接；即将Ltail结点与r->left连接；将r->right 与 Rhead与其连接；
+//step 4 返回以r结点为根的树的头与尾 ：Lhead、RTail
+//截止条件：r 为叶子结点
+
+TreeNode* treeToDoublyList(TreeNode* root) 
+{
+    if (root == nullptr)
+    {
+        return nullptr;
+    }
+    TreeNode* head, *tail;
+    listTree(root, head, tail);
+    head->left_ = tail;
+    tail->right_ = head;
+    return head;
+}
+
+void listTree(TreeNode* r, TreeNode* &head, TreeNode* &tail)
+{
+    if (r == nullptr)
+    {
+        return;
+    }
+    TreeNode* lhead, *ltail,*rhead,*rtail;
+    lhead = r;
+    if (r->left_ != nullptr){
+        listTree(r->left_, lhead, ltail);
+        r->left_ = ltail;
+        ltail->right_ = r;
+    }
+    rtail = r;
+    if (r->right_ != nullptr)
+    {
+        listTree(r->right_, rhead, rtail);
+        r->right_ = rhead;
+        rhead->left_ = r;
+    }
+    head = lhead;
+    tail = rtail;
+}
+
 }
