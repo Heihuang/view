@@ -1,29 +1,29 @@
 #include <exception>
 #include <stdlib.h>
+#include "../head.h"
 
 int RandomInRange(int l, int r)
 {
     int index = 0;
+    srand(time(nullptr));
+    index = l + rand()%r;
     return index;
 }
 
-void Swap(int *l, int *r)
-{
-
-}
 
 int Partition(int data[], int length, int start, int end)
 {
     if(data == NULL || length <= 0 || start < 0 || end >= length)
-        throw std::exception("Invalid Parameters");
+        return -1;
     int index = RandomInRange(start, end);
-    Swap(&data[index], &data[end]);
+    //定义哨兵
+    int pos = data[index];
     //定义最左端索引
     int samll = start - 1;
     for(index = start; index < end; ++index)
     {
         //当前值小于哨兵，左端索引加一，将当前值交换到左端索引位置
-        if(data[index] < data[end])
+        if(data[index] < pos)
         {
             ++samll;
             if(samll != index)
