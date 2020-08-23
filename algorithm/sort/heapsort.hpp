@@ -11,7 +11,7 @@ void adjustHeap(int* arr, int i, int len)
         if(k+1 < len)
         {
             //如果左子节点大于右子节点，则k移动到右节点
-            if(arr[k] < arr[k+1])
+            if(arr[k] > arr[k+1])
             {
                 ++k;
             }
@@ -33,6 +33,7 @@ void adjustHeap(int* arr, int i, int len)
 void hsort(int* arr, int len)
 {
     //第一步，构建大顶堆
+    //第一个非叶子节点的位置是len/2-1
     for(int i = (len / 2 - 1); i >= 0; --i)
     {
         //从下至上 从右至左，从第一个非叶子节点开始

@@ -14,4 +14,12 @@ void Swap(int* l, int* r)
     *l = *r;
     *r = t;
 }
+
+int RandomInRange(int l, int r)
+{
+    int index = 0;
+    srand(time(nullptr));
+    index = l + rand()%r;
+    return index;
+}
 #endif // ! HEAD_H_
