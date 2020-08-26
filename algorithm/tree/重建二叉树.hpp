@@ -21,9 +21,10 @@ TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder)
         if(preorder.size()==0||inorder.size()==0)return nullptr;
         //找到根节点在中序遍历中的位置，中序遍历之前的节点都是左子树节点，之后都是右子树节点
         return build(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1);  
-    }
+}
 
-    TreeNode* build(vector<int>& preorder,int a1,int b1,vector<int>& inorder,int a2,int b2){
+TreeNode* build(vector<int>& preorder,int a1,int b1,vector<int>& inorder,int a2,int b2)
+{
         TreeNode* root=new TreeNode(preorder[a1]);//创建当前的根节点
         int i=a2;
         while(inorder[i]!=preorder[a1])i++;//找到当前根节点在中序遍历中的位置i
@@ -32,5 +33,5 @@ TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder)
         if(left>0)root->left=build(preorder,a1+1,a1+left,inorder,a2,i-1);
         if(right>0)root->right=build(preorder,a1+left+1,b1,inorder,i+1,b2);
         return root;
-    }
+}
 
