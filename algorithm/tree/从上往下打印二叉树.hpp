@@ -11,7 +11,7 @@ void PrintFropTopToBottom(BInaryTreeNode* root)
     }
     std::deque<BInaryTreeNode*> dt;
     dt.push_back(root);
-    while (dt.empty())
+    while (!dt.empty())
     {
         /* code */
         BInaryTreeNode* node = dt.front();
