@@ -4,8 +4,10 @@
 解法：如果 k == nums[k]，那么缺失的数字一定在 k 右边，如果 k != nums[k]，那么缺失的数字要么为 k 要么在 k 左边；
 这个很类似于二分查找，我们也可以使用二分的思想去优化时间复杂度。
 */
+
 #include <vector>
 using namespace std;
+
 
 int missingNumber(vector<int>& nums) {
     int left = 0, right = nums.size();
