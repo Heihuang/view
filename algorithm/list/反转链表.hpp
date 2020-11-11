@@ -16,7 +16,7 @@ ListNode* reverseList(ListNode* head)
         p->next_ = q;
         //将next插入到头
         q = p;
-        //将p指向head->next->next
+        //将p指向head->next
         p = head->next_;
     }
     return q;
